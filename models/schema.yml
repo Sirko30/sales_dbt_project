@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: stg_sales
+    description: "Staging table for raw sales seed"
+    columns:
+      - name: reference_id
+        tests:
+          - not_null
+
+      - name: total_amount
+        tests:
+          - not_null
+
+  - name: fct_sales
+    description: "Fact table of sales with revenue and timezone conversions"
+    columns:
+      - name: reference_id
+        tests:
+          - not_null
+          - unique:
+              config:
+                severity: warn
+          - relationships:
+              to: ref('stg_sales')
+              field: reference_id
+
+      - name: company_revenue
+        tests:
+          - not_null
+
+      - name: source
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Chat', 'Call', 'Ticket', 'From Support', 'N/A']
+
+      - name: number_of_rebills
+        tests:
+          - not_null
