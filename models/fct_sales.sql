@@ -32,7 +32,7 @@ final as (
         coalesce(country,'N/A') as country,
         coalesce(campaign_name,'N/A') as campaign_name,
         coalesce(source,'N/A') as source,
-        (coalesce(total_amount_sum,0) + coalesce(total_rebill_amount_sum,0) - coalesce(returned_amount_sum,0)) as company_revenue,
+        (coalesce(total_amount_sum, 0) + coalesce(total_rebill_amount_sum, 0) - coalesce(returned_amount_sum, 0) - coalesce(discount_amount_sum, 0)) as company_revenue,
         coalesce(total_rebill_amount_sum,0) as rebill_revenue,
         coalesce(number_of_rebills,0) as number_of_rebills,
         coalesce(discount_amount_sum,0) as discount_amount,
